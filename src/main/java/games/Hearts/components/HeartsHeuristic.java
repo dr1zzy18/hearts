@@ -1,11 +1,10 @@
-package games.TG.components;
+package games.Hearts.components;
 
 import core.AbstractGameState;
-import core.components.FrenchCard;
 import core.interfaces.IStateHeuristic;
 import evaluation.TunableParameters;
 
-public class TGHeuristic extends TunableParameters implements IStateHeuristic {
+public class HeartsHeuristic extends TunableParameters implements IStateHeuristic {
 
     double HIGH_VALUE_THRESHOLD = 10.0;
     double MAX_HIGH_VALUE_CARD_PASS_BONUS = 0.3;
@@ -13,7 +12,7 @@ public class TGHeuristic extends TunableParameters implements IStateHeuristic {
     double maxHighValueCards = 10.0;
     double maxPossibleTricks = 10.0;
 
-    public TGHeuristic() {
+    public HeartsHeuristic() {
         addTunableParameter("HIGH_VALUE_THRESHOLD", 10.0);
         addTunableParameter("MAX_HIGH_VALUE_CARD_PASS_BONUS", 0.3);
         addTunableParameter("maxPossibleScore", 100.0);
@@ -31,8 +30,8 @@ public class TGHeuristic extends TunableParameters implements IStateHeuristic {
     }
 
     @Override
-    protected TGHeuristic _copy() {
-        TGHeuristic retValue = new TGHeuristic();
+    protected HeartsHeuristic _copy() {
+        HeartsHeuristic retValue = new HeartsHeuristic();
         retValue.HIGH_VALUE_THRESHOLD = HIGH_VALUE_THRESHOLD;
         retValue.MAX_HIGH_VALUE_CARD_PASS_BONUS = MAX_HIGH_VALUE_CARD_PASS_BONUS;
         retValue.maxPossibleScore = maxPossibleScore;
@@ -43,8 +42,8 @@ public class TGHeuristic extends TunableParameters implements IStateHeuristic {
 
     @Override
     protected boolean _equals(Object o) {
-        if (o instanceof TGHeuristic) {
-            TGHeuristic other = (TGHeuristic) o;
+        if (o instanceof HeartsHeuristic) {
+            HeartsHeuristic other = (HeartsHeuristic) o;
             return other.HIGH_VALUE_THRESHOLD == HIGH_VALUE_THRESHOLD && other.MAX_HIGH_VALUE_CARD_PASS_BONUS == MAX_HIGH_VALUE_CARD_PASS_BONUS
                     && other.maxPossibleScore == maxPossibleScore && other.maxHighValueCards == maxHighValueCards && other.maxPossibleTricks == maxPossibleTricks;
         }
@@ -52,13 +51,13 @@ public class TGHeuristic extends TunableParameters implements IStateHeuristic {
     }
 
     @Override
-    public TGHeuristic instantiate() {
+    public HeartsHeuristic instantiate() {
         return _copy();
     }
 
     @Override
     public double evaluateState(AbstractGameState gs, int playerId) {
-        TGGameState tgs = (TGGameState) gs;
+        HeartsGameState tgs = (HeartsGameState) gs;
 
         // Penalize player's score
         double scoreFactor = (maxPossibleScore - tgs.getPlayerPoints(playerId) / maxPossibleScore);

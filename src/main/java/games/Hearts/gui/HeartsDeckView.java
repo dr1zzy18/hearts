@@ -1,8 +1,7 @@
-package games.TG.gui;
+package games.Hearts.gui;
 
 import core.components.Deck;
 import core.components.FrenchCard;
-import core.components.PartialObservableDeck;
 import gui.views.CardView;
 import gui.views.ComponentView;
 import utilities.ImageIO;
@@ -13,9 +12,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static games.TG.gui.TGGUIManager.*;
+import static games.Hearts.gui.HeartsGUIManager.*;
 
-public class TGDeckView extends ComponentView {
+public class HeartsDeckView extends ComponentView {
 
     Image backOfCard;
     String dataPath;
@@ -28,7 +27,7 @@ public class TGDeckView extends ComponentView {
     int cardHighlight = -1;
     boolean highlighting;
 
-    public TGDeckView(Deck<FrenchCard> d, String dataPath,boolean visible){
+    public HeartsDeckView(Deck<FrenchCard> d, String dataPath, boolean visible){
         super(d, playerWidth, cardHeight);
         backOfCard = ImageIO.GetInstance().getImage(dataPath + "gray_back.png");
         this.dataPath = dataPath;

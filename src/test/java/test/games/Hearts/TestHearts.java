@@ -1,41 +1,35 @@
-package test.games.TG;
+package test.games.Hearts;
 
 import core.AbstractParameters;
-import core.AbstractPlayer;
-import core.CoreConstants;
-import core.Game;
 import core.actions.AbstractAction;
 import core.components.Deck;
-import java.util.ArrayList;
+
 import java.util.List;
-import games.GameType;
-import games.TG.components.TGForwardModel;
-import games.TG.components.TGGameState;
-import games.TG.components.TGParameters;
-import games.TG.actions.Pass;
-import games.TG.actions.Play;
+
+import games.Hearts.components.HeartsForwardModel;
+import games.Hearts.components.HeartsGameState;
+import games.Hearts.components.HeartsParameters;
+import games.Hearts.actions.Pass;
 import org.junit.*;
-import players.simple.RandomPlayer;
 import core.components.FrenchCard;
 
-import static games.TG.components.TGGameState.Phase.PLAYING;
 import static org.junit.Assert.*;
 
-public class TestTG {
+public class TestHearts {
 
-    private TGForwardModel forwardModel;
-    private TGGameState gameState;
+    private HeartsForwardModel forwardModel;
+    private HeartsGameState gameState;
 
-    AbstractParameters gameParameters = new TGParameters(System.currentTimeMillis());
+    AbstractParameters gameParameters = new HeartsParameters(System.currentTimeMillis());
 
     List<AbstractAction> actions;
 
 
     @Before
     public void setUp() {
-        forwardModel = new TGForwardModel();
-        // Assuming the constructor TGGameState(int nPlayers) exists.
-        gameState = new TGGameState(gameParameters, 3);
+        forwardModel = new HeartsForwardModel();
+        // Assuming the constructor HeartsGameState(int nPlayers) exists.
+        gameState = new HeartsGameState(gameParameters, 3);
         forwardModel._setup(gameState);
 
     }
@@ -43,7 +37,7 @@ public class TestTG {
     @Test
     public void testSetup() {
         // Assert that game phase is set to PASSING
-        assertEquals(TGGameState.Phase.PASSING, gameState.getGamePhase());
+        assertEquals(HeartsGameState.Phase.PASSING, gameState.getGamePhase());
         // Assert that all players have a deck with 17 cards (assuming a 3 player game)
         gameState.getPlayerDecks().forEach(deck -> assertEquals(17, deck.getSize()));
         // Add more assertions based on your game logic
@@ -67,7 +61,7 @@ public class TestTG {
 
     @Test
     public void testSetupPhaseIsPassing() {
-        assertEquals(TGGameState.Phase.PASSING, gameState.getGamePhase());
+        assertEquals(HeartsGameState.Phase.PASSING, gameState.getGamePhase());
     }
 
     //@Test

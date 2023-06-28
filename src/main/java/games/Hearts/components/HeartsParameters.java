@@ -1,4 +1,4 @@
-package games.TG.components;
+package games.Hearts.components;
 
 import core.AbstractGameState;
 import core.AbstractParameters;
@@ -19,7 +19,7 @@ import java.util.Objects;
  * <p>The class can optionally extend from {@link evaluation.TunableParameters} instead, which allows to use
  * automatic game parameter optimisation tools in the framework.</p>
  */
-public class TGParameters extends TunableParameters {
+public class HeartsParameters extends TunableParameters {
     public String dataPath = "data/FrenchCards/";
 
     public int jackCard = 10;
@@ -32,7 +32,7 @@ public class TGParameters extends TunableParameters {
     public int dealerStand = 17;
     public int nDealerCardsHidden = 1;
 
-    public TGParameters(long seed) {
+    public HeartsParameters(long seed) {
 
         super(seed);
 
@@ -67,7 +67,7 @@ public class TGParameters extends TunableParameters {
 
     @Override
     protected AbstractParameters _copy() {
-        TGParameters hgp = new TGParameters(System.currentTimeMillis());
+        HeartsParameters hgp = new HeartsParameters(System.currentTimeMillis());
         hgp.dataPath = dataPath;
         hgp.jackCard = jackCard;
         hgp.queenCard = queenCard;
@@ -84,9 +84,9 @@ public class TGParameters extends TunableParameters {
     @Override
     public boolean _equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TGParameters)) return false;
+        if (!(o instanceof HeartsParameters)) return false;
         if (!super.equals(o)) return false;
-        TGParameters that = (TGParameters) o;
+        HeartsParameters that = (HeartsParameters) o;
         return jackCard == that.jackCard && queenCard == that.queenCard && kingCard == that.kingCard && aceCardBelowThreshold == that.aceCardBelowThreshold && aceCardAboveThreshold == that.aceCardAboveThreshold && pointThreshold == that.pointThreshold && winScore == that.winScore && dealerStand == that.dealerStand && nDealerCardsHidden == that.nDealerCardsHidden && Objects.equals(dataPath, that.dataPath);
     }
 
@@ -98,6 +98,6 @@ public class TGParameters extends TunableParameters {
     @Override
     public Game instantiate() {
         System.out.println("New game is being instantiated");  // add this line
-        return new Game(GameType.TG, new TGForwardModel(), new TGGameState(this, GameType.TG.getMinPlayers()));
+        return new Game(GameType.Hearts, new HeartsForwardModel(), new HeartsGameState(this, GameType.Hearts.getMinPlayers()));
     }
 }

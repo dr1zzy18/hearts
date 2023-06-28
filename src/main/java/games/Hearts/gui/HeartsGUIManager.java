@@ -1,11 +1,10 @@
-package games.TG.gui;
+package games.Hearts.gui;
 
 import core.AbstractGameState;
 import core.AbstractPlayer;
-import core.CoreConstants;
 import core.Game;
-import games.TG.components.TGGameState;
-import games.TG.components.TGParameters;
+import games.Hearts.components.HeartsGameState;
+import games.Hearts.components.HeartsParameters;
 import gui.AbstractGUIManager;
 import gui.GamePanel;
 import gui.IScreenHighlight;
@@ -18,10 +17,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 
-public class TGGUIManager extends AbstractGUIManager {
+public class HeartsGUIManager extends AbstractGUIManager {
     final static int playerWidth = 300;
     final static int playerHeight = 130;
     final static int cardWidth = 90;
@@ -30,18 +28,18 @@ public class TGGUIManager extends AbstractGUIManager {
     private String lastHistoryEntry = null;
 
     int width, height;
-    TGPlayerView[] playerHands;
-    TGPlayerTrickView[] playerTricks;
+    HeartsPlayerView[] playerHands;
+    HeartsPlayerTrickView[] playerTricks;
 
 
-    private TGGameState gameState;
+    private HeartsGameState gameState;
 
     int activePlayer = -1;
 
     Border highlightActive = BorderFactory.createLineBorder(new Color(47,132,220), 3);
     Border[] playerViewBorders;
 
-    public TGGUIManager(GamePanel parent, Game game, ActionController ac, Set<Integer> humanID) {
+    public HeartsGUIManager(GamePanel parent, Game game, ActionController ac, Set<Integer> humanID) {
         super(parent, game, ac, humanID);
 
         UIManager.put("TabbedPane.contentOpaque", false);
@@ -72,13 +70,13 @@ public class TGGUIManager extends AbstractGUIManager {
                 parent.setPreferredSize(new Dimension(width, height + defaultActionPanelHeight + defaultInfoPanelHeight + defaultCardHeight * 2 + 20));
                 ruleText.setPreferredSize(new Dimension(width*2/3+60, height*2/3+100));
 
-                TGGameState hgs = (TGGameState) gameState;
-                TGParameters bjgp = (TGParameters) gameState.getGameParameters();
+                HeartsGameState hgs = (HeartsGameState) gameState;
+                HeartsParameters bjgp = (HeartsParameters) gameState.getGameParameters();
 
                 parent.setBackground(ImageIO.GetInstance().getImage("data/FrenchCards/table-background.jpg"));
 
-                playerHands = new TGPlayerView[nPlayers];
-                playerTricks = new TGPlayerTrickView[nPlayers];
+                playerHands = new HeartsPlayerView[nPlayers];
+                playerTricks = new HeartsPlayerTrickView[nPlayers];
                 playerViewBorders = new Border[nPlayers];
                 JPanel mainGameArea = new JPanel();
                 mainGameArea.setOpaque(false);
@@ -95,8 +93,8 @@ public class TGGUIManager extends AbstractGUIManager {
                 mainGameArea.setLayout(new GridLayout(rows, cols)); // Changed to GridLayout
 
                 for (int i = 0; i < nPlayers; i++) {
-                    TGPlayerView playerHand = new TGPlayerView(hgs.getPlayerDecks().get(i), i, bjgp.getDataPath());
-                    TGPlayerTrickView playerTrick = new TGPlayerTrickView(hgs.getPlayerTrickDecks().get(i), i, bjgp.getDataPath());
+                    HeartsPlayerView playerHand = new HeartsPlayerView(hgs.getPlayerDecks().get(i), i, bjgp.getDataPath());
+                    HeartsPlayerTrickView playerTrick = new HeartsPlayerTrickView(hgs.getPlayerTrickDecks().get(i), i, bjgp.getDataPath());
                     playerHand.setOpaque(false);
                     playerTrick.setOpaque(false);
 
@@ -244,7 +242,7 @@ public class TGGUIManager extends AbstractGUIManager {
             }
 
             // Update decks and visibility
-            TGGameState hgs = (TGGameState) gameState;
+            HeartsGameState hgs = (HeartsGameState) gameState;
             if (!hgs.isGameEnded()) {
                 this.gameState = hgs;
             }

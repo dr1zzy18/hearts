@@ -1,4 +1,4 @@
-package games.TG.components;
+package games.Hearts.components;
 
 import core.CoreConstants;
 import core.components.Component;

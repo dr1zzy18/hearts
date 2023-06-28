@@ -2,10 +2,10 @@ package games;
 
 import core.*;
 import core.rules.AbstractRuleBasedForwardModel;
-import games.TG.components.TGForwardModel;
-import games.TG.components.TGGameState;
-import games.TG.components.TGParameters;
-import games.TG.gui.TGGUIManager;
+import games.Hearts.components.HeartsForwardModel;
+import games.Hearts.components.HeartsGameState;
+import games.Hearts.components.HeartsParameters;
+import games.Hearts.gui.HeartsGUIManager;
 import games.battlelore.*;
 import games.battlelore.gui.BattleloreGUI;
 import games.blackjack.*;
@@ -177,9 +177,9 @@ public enum GameType {
             Arrays.asList(EndGameBonus, TilePlacement, RoleSelection, EngineBuilding, TableauBuilding),
             PuertoRicoGameState.class, PuertoRicoForwardModel.class, PuertoRicoParameters.class, PuertoRicoGUI.class),
 
-    TG(3,7,Arrays.asList(Cards, ComicBook, Number, MoviesTVRadio, Bluffing),
+    Hearts(3,7,Arrays.asList(Cards, ComicBook, Number, MoviesTVRadio, Bluffing),
             Arrays.asList(HandManagement, LoseATurn, TakeThat),
-            TGGameState.class, TGForwardModel.class, TGParameters.class, TGGUIManager.class);
+            HeartsGameState.class, HeartsForwardModel.class, HeartsParameters.class, HeartsGUIManager.class);
 
 
     // Core classes where the game is defined

@@ -1,25 +1,25 @@
-package games.TG.gui;
+package games.Hearts.gui;
 
 import core.components.Deck;
 import core.components.FrenchCard;
-import games.TG.components.TGGameState;
+import games.Hearts.components.HeartsGameState;
 
 
 
 import java.awt.*;
 
-import static games.TG.gui.TGGUIManager.*;
+import static games.Hearts.gui.HeartsGUIManager.*;
 
-public class TGPlayerTrickView extends TGDeckView {
+public class HeartsPlayerTrickView extends HeartsDeckView {
     int playerID;
     int Points;
 
     int border = 5;
     int borderBottom = 20;
 
-    TGDeckView playerHandView;
+    HeartsDeckView playerHandView;
 
-    public TGPlayerTrickView(Deck<FrenchCard>d, int playerID, String dataPath){
+    public HeartsPlayerTrickView(Deck<FrenchCard>d, int playerID, String dataPath){
         super(d, dataPath,false);
         this.width = playerWidth + border*2;
         this.height = playerHeight + border + borderBottom;
@@ -37,7 +37,7 @@ public class TGPlayerTrickView extends TGDeckView {
     @Override
     public Dimension getPreferredSize(){ return new Dimension(width, height); }
 
-    public void update(TGGameState hgs){
+    public void update(HeartsGameState hgs){
         Points = hgs.getPlayerPoints(playerID);
         this.setDeck(hgs.getPlayerTrickDecks().get(playerID));
         repaint();

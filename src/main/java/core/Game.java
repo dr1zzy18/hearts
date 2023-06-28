@@ -9,29 +9,22 @@ import evaluation.listeners.IGameListener;
 import evaluation.metrics.Event;
 import evaluation.summarisers.TAGNumericStatSummary;
 import games.GameType;
-import games.TG.components.TGHeuristic;
+import games.Hearts.components.HeartsHeuristic;
 import gui.*;
 import players.heuristics.LeaderHeuristic;
 import players.heuristics.ScoreHeuristic;
-import players.heuristics.WinOnlyHeuristic;
 import players.human.*;
 import players.mcts.MCTSParams;
 import players.mcts.MCTSPlayer;
-import players.rmhc.RMHCPlayer;
-import players.simple.RandomPlayer;
 import utilities.Pair;
 import utilities.Utils;
 
 import javax.swing.Timer;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static utilities.Utils.componentToImage;
 
 public class Game {
 
@@ -820,7 +813,7 @@ public class Game {
 //        players.add(new RandomPlayer());
 
        MCTSParams params = new MCTSParams();
-       params.heuristic = new TGHeuristic();
+       params.heuristic = new HeartsHeuristic();
        players.add(new MCTSPlayer(params));
 
         MCTSParams params1 = new MCTSParams();
@@ -854,7 +847,7 @@ public class Game {
         String gameParams = null;
 
         /* Run! */
-        runOne(GameType.TG, gameParams, players, seed, false, null, useGUI ? ac : null, turnPause);
+        runOne(GameType.Hearts, gameParams, players, seed, false, null, useGUI ? ac : null, turnPause);
 
         /* Run multiple games */
 //        ArrayList<GameType> games = new ArrayList<>(Arrays.asList(GameType.values()));

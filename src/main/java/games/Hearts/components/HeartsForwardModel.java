@@ -1,14 +1,13 @@
-package games.TG.components;
+package games.Hearts.components;
 
-import com.google.common.base.Function;
 import core.AbstractGameState;
 import core.CoreConstants;
 import core.StandardForwardModel;
 import core.actions.AbstractAction;
 import core.components.Deck;
 import core.components.FrenchCard;
-import games.TG.actions.Play;
-import games.TG.actions.Pass;
+import games.Hearts.actions.Play;
+import games.Hearts.actions.Pass;
 
 import java.util.*;
 
@@ -23,12 +22,12 @@ import static core.CoreConstants.GameResult.*;
  *     <li>Game end</li>
  * </ol>
  */
-public class TGForwardModel extends StandardForwardModel {
+public class HeartsForwardModel extends StandardForwardModel {
 
     @Override
     public void _setup(AbstractGameState firstState) {
-        TGGameState hgs = (TGGameState) firstState;
-        hgs.setGamePhase(TGGameState.Phase.PASSING);
+        HeartsGameState hgs = (HeartsGameState) firstState;
+        hgs.setGamePhase(HeartsGameState.Phase.PASSING);
 
         hgs.playerWithTwoOfClubs = -1;
         hgs.setFirstPlayer(0);
@@ -122,11 +121,11 @@ public class TGForwardModel extends StandardForwardModel {
 
 
     public void _afterAction(AbstractGameState gameState, AbstractAction action) {
-        TGGameState hgs = (TGGameState) gameState;
+        HeartsGameState hgs = (HeartsGameState) gameState;
         //System.out.println("Player " + gameState.getCurrentPlayer() + " performed action: " + action + " during " + hgs.getGamePhase() + " phase.");
 
 
-        if (hgs.getGamePhase() == TGGameState.Phase.PASSING) {
+        if (hgs.getGamePhase() == HeartsGameState.Phase.PASSING) {
             if (action instanceof Pass) {
                 Pass passAction = (Pass) action;
 
@@ -146,7 +145,7 @@ public class TGForwardModel extends StandardForwardModel {
 
                     // Check if all players have passed their cards
                     if (passAction.playerID == hgs.getNPlayers() - 1) {
-                        hgs.setGamePhase(TGGameState.Phase.PLAYING);
+                        hgs.setGamePhase(HeartsGameState.Phase.PLAYING);
 
                         // Determine the pass direction based on the current round
                         int passDirection;
@@ -231,7 +230,7 @@ public class TGForwardModel extends StandardForwardModel {
         }
 
         // Only end player's turn here if it's not PASSING phase
-        if (hgs.getGamePhase() != TGGameState.Phase.PASSING) {
+        if (hgs.getGamePhase() != HeartsGameState.Phase.PASSING) {
             endPlayerTurn(hgs);
         }
     }
@@ -290,12 +289,12 @@ public class TGForwardModel extends StandardForwardModel {
 
     @Override
     public List<AbstractAction> _computeAvailableActions(AbstractGameState gameState) {
-        TGGameState hgs = (TGGameState) gameState;
+        HeartsGameState hgs = (HeartsGameState) gameState;
         ArrayList<AbstractAction> actions = new ArrayList<>();
         int player = hgs.getCurrentPlayer();
         Deck<FrenchCard> playerHand = hgs.playerDecks.get(player);
 
-        if (hgs.getGamePhase() == TGGameState.Phase.PASSING) {
+        if (hgs.getGamePhase() == HeartsGameState.Phase.PASSING) {
             // Generate Pass action for each card in the player's hand
             List<FrenchCard> cards = playerHand.getComponents();
             for (FrenchCard card : cards) {
@@ -344,8 +343,8 @@ public class TGForwardModel extends StandardForwardModel {
 
 
 
-    private void _endTurn(TGGameState hgs) {
-        TGParameters params = (TGParameters) hgs.getGameParameters();
+    private void _endTurn(HeartsGameState hgs) {
+        HeartsParameters params = (HeartsParameters) hgs.getGameParameters();
         Map<Integer, Integer> pointsMap = hgs.getPlayerPointsMap();
 
         int highestCardValue = -1;
@@ -396,7 +395,7 @@ public class TGForwardModel extends StandardForwardModel {
         }
     }
 
-    private void startNewRound(TGGameState hgs) {
+    private void startNewRound(HeartsGameState hgs) {
         hgs.currentRoundCards.clear();
         hgs.firstCardSuit = null;
         hgs.setCurrentPlayer(hgs.getFirstPlayer());

@@ -1,11 +1,11 @@
-package games.TG.actions;
+package games.Hearts.actions;
 
 import core.AbstractGameState;
 import core.actions.AbstractAction;
 import core.components.Deck;
 import core.components.FrenchCard;
 import core.interfaces.IPrintable;
-import games.TG.components.TGGameState;
+import games.Hearts.components.HeartsGameState;
 
 import java.util.Objects;
 
@@ -21,7 +21,7 @@ public class Pass extends AbstractAction implements IPrintable {
 
     @Override
     public boolean execute(AbstractGameState gameState) {
-        TGGameState hgs = (TGGameState) gameState;
+        HeartsGameState hgs = (HeartsGameState) gameState;
         if (playerID >= 0 && playerID < hgs.getPlayerDecks().size()) {  // Check bounds
             Deck<FrenchCard> playerHand = hgs.getPlayerDecks().get(playerID);
             if (playerHand.getComponents().remove(card1)) {

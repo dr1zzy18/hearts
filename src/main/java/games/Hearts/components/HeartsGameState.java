@@ -1,4 +1,4 @@
-package games.TG.components;
+package games.Hearts.components;
 
 import core.AbstractGameState;
 import core.AbstractParameters;
@@ -11,20 +11,7 @@ import games.GameType;
 import java.util.ArrayList;
 import java.util.*;
 
-import core.actions.AbstractAction;
-import core.actions.LogEvent;
-import core.components.*;
-import core.interfaces.*;
-import evaluation.listeners.IGameListener;
-import evaluation.metrics.Event;
-import games.GameType;
-import utilities.ElapsedCpuChessTimer;
-
-import java.util.*;
 import java.util.function.*;
-
-import static core.CoreConstants.GameResult.GAME_ONGOING;
-import static java.util.stream.Collectors.toList;
 
 /**
  * <p>The game state encapsulates all game information. It is a data-only class, with game functionality present
@@ -34,7 +21,7 @@ import static java.util.stream.Collectors.toList;
  * <p>Computation may be included in functions here for ease of access, but only if this is querying the game state information.
  * Functions on the game state should never <b>change</b> the state of the game.</p>
  */
-public class TGGameState extends AbstractGameState {
+public class HeartsGameState extends AbstractGameState {
     /**
      * @param gameParameters - game parameters.
      * @param nPlayers       - number of players in the game
@@ -82,7 +69,7 @@ public class TGGameState extends AbstractGameState {
 
     private int currentPlayer;
 
-    public TGGameState(AbstractParameters gameParameters, int nPlayers) {
+    public HeartsGameState(AbstractParameters gameParameters, int nPlayers) {
         super(gameParameters, nPlayers);
         chosenCards = new HashMap<>();
         playerPoints = new HashMap<>();
@@ -107,7 +94,7 @@ public class TGGameState extends AbstractGameState {
     @Override
     protected GameType _getGameType() {
         // TODO: replace with game-specific enum value declared in GameType
-        return GameType.TG;
+        return GameType.Hearts;
     }
 
     /**
@@ -222,7 +209,7 @@ public class TGGameState extends AbstractGameState {
          */
     @Override
     protected AbstractGameState _copy(int playerId) {
-        TGGameState copy = new TGGameState(gameParameters.copy(), getNPlayers());
+        HeartsGameState copy = new HeartsGameState(gameParameters.copy(), getNPlayers());
 
         // Copy player decks
         copy.playerDecks = new ArrayList<>();
@@ -311,7 +298,7 @@ public class TGGameState extends AbstractGameState {
      */
     @Override
     protected double _getHeuristicScore(int playerId) {
-        return new TGHeuristic().evaluateState(this, playerId);
+        return new HeartsHeuristic().evaluateState(this, playerId);
     }
 
 
@@ -340,9 +327,9 @@ public class TGGameState extends AbstractGameState {
     @Override
     public boolean _equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TGGameState)) return false;
+        if (!(o instanceof HeartsGameState)) return false;
         if (!super.equals(o)) return false;
-        TGGameState that = (TGGameState) o;
+        HeartsGameState that = (HeartsGameState) o;
         return heartsBroken == that.heartsBroken &&
                 currentRound == that.currentRound &&
                 firstTurn == that.firstTurn &&
