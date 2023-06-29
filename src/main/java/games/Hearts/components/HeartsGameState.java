@@ -226,13 +226,22 @@ public class HeartsGameState extends AbstractGameState {
                     int originalSize = playerDecks.get(i).getSize();  // Store the original size of the deck
                     copy.drawDeck.add(copy.playerDecks.get(i));
                     copy.playerDecks.get(i).clear();
+                }
+            }
+            copy.drawDeck.shuffle(new Random(copy.gameParameters.getRandomSeed()));
 
-                    for (int j = 0; j < originalSize; j++) {
+            for (int i = 0; i < getNPlayers(); i++) {
+                if (i != playerId) {
+                    for (int j = 0; j < playerDecks.get(i).getSize(); j++) {
                         copy.playerDecks.get(i).add(copy.drawDeck.draw());
                     }
                 }
             }
+
         }
+
+        copy.trickDecks = trickDecks;
+
 
         // Copy heartsBroken
         copy.heartsBroken = heartsBroken;

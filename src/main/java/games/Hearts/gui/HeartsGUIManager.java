@@ -82,15 +82,15 @@ public class HeartsGUIManager extends AbstractGUIManager {
                 mainGameArea.setOpaque(false);
                 mainGameArea.setLayout(new BorderLayout());
 
-                // NORTH, EAST, SOUTH, WEST
-                String[] locations = new String[]{BorderLayout.NORTH, BorderLayout.EAST, BorderLayout.SOUTH, BorderLayout.WEST};
-                JPanel[] sides = new JPanel[nPlayers]; // Changed to accommodate all players
 
-// Assuming that nPlayers is the total number of players
+                String[] locations = new String[]{BorderLayout.NORTH, BorderLayout.EAST, BorderLayout.SOUTH, BorderLayout.WEST};
+                JPanel[] sides = new JPanel[nPlayers];
+
+
                 int rows = nPlayers / 2 + nPlayers % 2;
                 int cols = nPlayers / rows;
 
-                mainGameArea.setLayout(new GridLayout(rows, cols)); // Changed to GridLayout
+                mainGameArea.setLayout(new GridLayout(rows, cols));
 
                 for (int i = 0; i < nPlayers; i++) {
                     HeartsPlayerView playerHand = new HeartsPlayerView(hgs.getPlayerDecks().get(i), i, bjgp.getDataPath());
@@ -98,11 +98,11 @@ public class HeartsGUIManager extends AbstractGUIManager {
                     playerHand.setOpaque(false);
                     playerTrick.setOpaque(false);
 
-                    // Get agent name
+
                     String[] split = game.getPlayers().get(i).getClass().toString().split("\\.");
                     String agentName = split[split.length - 1];
 
-                    // Create border, layouts and keep track of this view
+
                     TitledBorder title;
 
                         title = BorderFactory.createTitledBorder(
@@ -113,23 +113,23 @@ public class HeartsGUIManager extends AbstractGUIManager {
                     playerHand.setBorder(title);
                     playerTrick.setBorder(title);
 
-                    sides[i] = new JPanel(); // Create new JPanel for each player
+                    sides[i] = new JPanel();
                     sides[i].add(playerHand);
                     sides[i].add(playerTrick);
-                    sides[i].setLayout(new GridLayout(1,2)); // Set layout as needed
+                    sides[i].setLayout(new GridLayout(1,2));
                     sides[i].setOpaque(false);
                     playerHands[i] = playerHand;
                     playerTricks[i] = playerTrick;
 
-                    mainGameArea.add(sides[i]); // Add to the mainGameArea directly
+                    mainGameArea.add(sides[i]);
                 }
 
-                // Top area will show state information
+
                 JPanel infoPanel = createGameStateInfoPanel("Hearts", gameState, width, defaultInfoPanelHeight);
-                // Bottom area will show actions available
+
                 JComponent actionPanel = createActionPanel(new IScreenHighlight[0], width, defaultActionPanelHeight, false);
 
-                // Add all views to frame
+
                 main.add(mainGameArea, BorderLayout.CENTER);
                 main.add(infoPanel, BorderLayout.NORTH);
                 main.add(actionPanel, BorderLayout.SOUTH);
@@ -189,7 +189,7 @@ public class HeartsGUIManager extends AbstractGUIManager {
         gameInfo.setLayout(new BoxLayout(gameInfo, BoxLayout.Y_AXIS));
         gameInfo.add(new JLabel("<html><h1>" + gameTitle + "</h1></html>"));
 
-        //System.out.println("GameState Before GUI Update: " + Arrays.toString(gameState.getPlayerResults()));
+
 
         updateGameStateInfo(gameState);
 
@@ -231,7 +231,7 @@ public class HeartsGUIManager extends AbstractGUIManager {
             playerHands[gameState.getCurrentPlayer()].setFront(true);
             playerTricks[gameState.getCurrentPlayer()].setFront(true);
             playerStatus.setText(Arrays.toString(gameState.getPlayerResults()));
-           // System.out.println("Player status is ="+playerStatus.getText());
+
 
 
             if (gameState.getCurrentPlayer() != activePlayer) {
@@ -241,7 +241,7 @@ public class HeartsGUIManager extends AbstractGUIManager {
 
             }
 
-            // Update decks and visibility
+
             HeartsGameState hgs = (HeartsGameState) gameState;
             if (!hgs.isGameEnded()) {
                 this.gameState = hgs;
@@ -251,7 +251,7 @@ public class HeartsGUIManager extends AbstractGUIManager {
             for(int i = 0; i < gameState.getNPlayers(); i++) {
                 playerHands[i].update(this.gameState);
 
-                // Highlight active player
+
                 if (i == gameState.getCurrentPlayer()) {
                     Border compound = BorderFactory.createCompoundBorder(
                             highlightActive, playerViewBorders[i]);

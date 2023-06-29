@@ -38,18 +38,17 @@ public class HeartsForwardModel extends StandardForwardModel {
 
         FrenchCard remover = new FrenchCard(FrenchCard.FrenchCardType.Number, FrenchCard.Suite.Diamonds, 2);
 
-        hgs.firstTurn = true;  // Initialize to true
+        hgs.firstTurn = true;
 
         hgs.playerDecks = new ArrayList<>();
         //hgs.trickDecks = new ArrayList<>();
         hgs.drawDeck = FrenchCard.generateDeck("DrawDeck", CoreConstants.VisibilityMode.HIDDEN_TO_ALL);
-        //hgs.drawDeck.shuffle(new Random((hgs.getGameParameters().getRandomSeed())));
         hgs.drawDeck.shuffle(new Random(System.currentTimeMillis()));
 
         int numOfPlayers = hgs.getNPlayers();
 
 
-        // Define the cards to remove for each number of players
+
         Map<Integer, List<FrenchCard>> cardsToRemove = new HashMap<>();
         cardsToRemove.put(3, Arrays.asList(new FrenchCard(FrenchCard.FrenchCardType.Number, FrenchCard.Suite.Diamonds, 2)));
         cardsToRemove.put(5, Arrays.asList(new FrenchCard(FrenchCard.FrenchCardType.Number, FrenchCard.Suite.Diamonds, 2),
@@ -62,7 +61,7 @@ public class HeartsForwardModel extends StandardForwardModel {
                 new FrenchCard(FrenchCard.FrenchCardType.Number, FrenchCard.Suite.Diamonds, 3),
                 new FrenchCard(FrenchCard.FrenchCardType.Number, FrenchCard.Suite.Clubs, 3)));
 
-        // Remove the cards for the current number of players
+
         if (cardsToRemove.containsKey(numOfPlayers)) {
             for (FrenchCard removeCard : cardsToRemove.get(numOfPlayers)) {
                 int removeIndex = -1;
@@ -105,7 +104,7 @@ public class HeartsForwardModel extends StandardForwardModel {
             } else if (hgs.getNPlayers() == 7) {
                 numberOfCards = 7;
             } else {
-                numberOfCards = 0;  // or set to whatever default or error value is appropriate
+                numberOfCards = 0;
             }
 
             //hgs.trickDecks.add(hgs.trickDeck);
@@ -129,7 +128,7 @@ public class HeartsForwardModel extends StandardForwardModel {
             if (action instanceof Pass) {
                 Pass passAction = (Pass) action;
 
-                // Remove card from player's deck and add it to the next player's deck
+
                 Deck<FrenchCard> playerDeck = hgs.playerDecks.get(passAction.playerID);
 
 

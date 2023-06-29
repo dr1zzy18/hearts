@@ -15,7 +15,7 @@ public class Play extends AbstractAction implements IPrintable {
 
 
     public Play(int playerID, FrenchCard card) {
-        this.playerID = playerID; // dont include this
+        this.playerID = playerID;
         this.card = card;
 
     }
