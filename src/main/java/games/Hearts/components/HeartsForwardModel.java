@@ -27,6 +27,13 @@ public class HeartsForwardModel extends StandardForwardModel {
     @Override
     public void _setup(AbstractGameState firstState) {
         HeartsGameState hgs = (HeartsGameState) firstState;
+        boolean[] visibility = new boolean[firstState.getNPlayers()];
+        hgs.resetGameScores();
+        Arrays.fill(visibility, true);
+        _setupRound(hgs);
+    }
+
+    public void _setupRound(HeartsGameState hgs){
         hgs.setGamePhase(HeartsGameState.Phase.PASSING);
 
         hgs.playerWithTwoOfClubs = -1;
@@ -79,14 +86,6 @@ public class HeartsForwardModel extends StandardForwardModel {
         }
 
 
-
-
-
-
-
-        boolean[] visibility = new boolean[firstState.getNPlayers()];
-        Arrays.fill(visibility, true);
-
         for (int i = 0; i < hgs.getNPlayers(); i++){
             Deck<FrenchCard> playerDeck = new Deck<>("Player " + i + " deck", i, CoreConstants.VisibilityMode.VISIBLE_TO_OWNER);
             //Deck<FrenchCard> trickDeck = new Deck<>("Player " + i + " deck", i, CoreConstants.VisibilityMode.VISIBLE_TO_OWNER);
@@ -113,8 +112,9 @@ public class HeartsForwardModel extends StandardForwardModel {
             }
 
         }
-
     }
+
+
 
 
 
@@ -238,7 +238,8 @@ public class HeartsForwardModel extends StandardForwardModel {
 
     @Override
     protected void endGame(AbstractGameState gs){
-        double minScore = 100;
+        HeartsGameState hgs = (HeartsGameState) gs;
+        double minScore = 1000;
         gs.setGameStatus(GAME_END);
         List<Integer> winningPlayers = new ArrayList<>();
 
@@ -276,6 +277,7 @@ public class HeartsForwardModel extends StandardForwardModel {
                 gs.setPlayerResult(LOSE_GAME, playerID);
             }
         }
+
 
 
 
@@ -353,7 +355,6 @@ public class HeartsForwardModel extends StandardForwardModel {
             if (card.suite.equals(hgs.firstCardSuit) && card.number > highestCardValue) {
                 highestCardValue = card.number;
                 winningPlayerID = entry.getKey();
-                //System.out.println("Winning Player ID: " + winningPlayerID);
             }
         }
 
@@ -385,10 +386,10 @@ public class HeartsForwardModel extends StandardForwardModel {
                 // If no player has reached 100 points yet, reshuffle and deal new hands
                 if (hgs.currentRound == 4) {
                     hgs.currentRound = 1;
-                    _setup(hgs);
+                    _setupRound(hgs);
                 } else {
                     hgs.currentRound++;
-                    _setup(hgs);
+                    _setupRound(hgs);
                 }
             }
         }

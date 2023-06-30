@@ -13,6 +13,8 @@ import java.util.*;
 
 import java.util.function.*;
 
+import static java.util.Objects.deepEquals;
+
 /**
  * <p>The game state encapsulates all game information. It is a data-only class, with game functionality present
  * in the Forward Model or actions modifying the state of the game.</p>
@@ -41,6 +43,8 @@ public class HeartsGameState extends AbstractGameState {
     public boolean firstTurn = true;
 
     public int currentRound;
+
+    public int numberOfCards;
 
     public List<List<FrenchCard>> pendingPasses;
 
@@ -211,13 +215,13 @@ public class HeartsGameState extends AbstractGameState {
     protected AbstractGameState _copy(int playerId) {
         HeartsGameState copy = new HeartsGameState(gameParameters.copy(), getNPlayers());
 
-        // Copy player decks
+        // Deep Copy player decks
         copy.playerDecks = new ArrayList<>();
         for (Deck<FrenchCard> d : playerDecks) {
             copy.playerDecks.add(d.copy());
         }
 
-        // Copy draw deck
+        // Deep Copy draw deck
         copy.drawDeck = drawDeck.copy();
 
         if (getCoreGameParameters().partialObservable && playerId != -1) {
@@ -240,59 +244,63 @@ public class HeartsGameState extends AbstractGameState {
 
         }
 
-        copy.trickDecks = trickDecks;
+        // Deep Copy trickDecks
+        copy.trickDecks = new ArrayList<>();
+        for (Deck<FrenchCard> d : trickDecks) {
+            copy.trickDecks.add(d.copy());
+        }
 
 
-        // Copy heartsBroken
         copy.heartsBroken = heartsBroken;
 
         copy.currentRound = currentRound;
 
-        // Copy playerPassCounter
+        // Deep Copy playerPassCounter
         copy.playerPassCounter = Arrays.copyOf(playerPassCounter, playerPassCounter.length);
 
+        // Deep Copy playerTricksTaken
         copy.playerTricksTaken = Arrays.copyOf(playerTricksTaken, playerTricksTaken.length);
 
-        // Copy firstTurn
+
         copy.firstTurn = firstTurn;
 
-        // Copy pendingPasses
+        // Deep Copy pendingPasses
         copy.pendingPasses = new ArrayList<>();
         for (List<FrenchCard> list : pendingPasses) {
             copy.pendingPasses.add(new ArrayList<>(list));
         }
 
-        // Copy playerWithTwoOfClubs
+
         copy.playerWithTwoOfClubs = playerWithTwoOfClubs;
 
-        // Copy gameEnded
+
         copy.gameEnded = gameEnded;
 
-        // Copy chosenCards
+        // Deep Copy chosenCards
         copy.chosenCards = new HashMap<>();
         for (Map.Entry<Integer, FrenchCard> entry : chosenCards.entrySet()) {
             copy.chosenCards.put(entry.getKey(), entry.getValue().copy());
         }
 
-        // Copy playerPoints
+        // Deep Copy playerPoints
         copy.playerPoints = new HashMap<>(playerPoints);
 
-        // Copy passedCards
+        // Deep Copy passedCards
         copy.passedCards = new ArrayList<>();
         for (List<FrenchCard> list : passedCards) {
             copy.passedCards.add(new ArrayList<>(list));
         }
 
-        // Copy currentRoundCards
+        // Deep Copy currentRoundCards
         copy.currentRoundCards = new ArrayList<>();
         for (Map.Entry<Integer, FrenchCard> entry : currentRoundCards) {
             copy.currentRoundCards.add(new AbstractMap.SimpleEntry<>(entry.getKey(), entry.getValue().copy()));
         }
 
-        // Copy firstCardSuit
+
         copy.firstCardSuit = firstCardSuit;
 
-        // Copy currentPlayer
+
         copy.currentPlayer = currentPlayer;
 
         return copy;
@@ -321,6 +329,13 @@ public class HeartsGameState extends AbstractGameState {
         return playerPoints.getOrDefault(playerId,0);
     }
 
+    public void resetGameScores() {
+        for (Integer playerId : playerPoints.keySet()) {
+            playerPoints.put(playerId, 0);
+        }
+    }
+
+
 
 
     @Override
@@ -345,11 +360,11 @@ public class HeartsGameState extends AbstractGameState {
                 playerWithTwoOfClubs == that.playerWithTwoOfClubs &&
                 gameEnded == that.gameEnded &&
                 currentPlayer == that.currentPlayer &&
+                Arrays.equals(playerPassCounter, that.playerPassCounter) &&
+                Arrays.equals(playerTricksTaken, that.playerTricksTaken) &&
                 Objects.equals(playerDecks, that.playerDecks) &&
                 Objects.equals(drawDeck, that.drawDeck) &&
                 Objects.equals(trickDecks, that.trickDecks) &&
-                Objects.equals(playerPassCounter, that.playerPassCounter) &&
-                Objects.equals(playerTricksTaken, that.playerTricksTaken) &&
                 Objects.equals(pendingPasses, that.pendingPasses) &&
                 Objects.equals(chosenCards, that.chosenCards) &&
                 Objects.equals(playerPoints, that.playerPoints) &&
@@ -357,6 +372,19 @@ public class HeartsGameState extends AbstractGameState {
                 Objects.equals(currentRoundCards, that.currentRoundCards) &&
                 Objects.equals(firstCardSuit, that.firstCardSuit);
     }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), playerDecks, drawDeck, heartsBroken, currentRound, firstTurn,
+                playerWithTwoOfClubs, gameEnded, currentPlayer, firstCardSuit, trickDecks, numberOfCards,
+                pendingPasses, chosenCards, playerPoints, passedCards, currentRoundCards);
+        result = 31 * result + Arrays.hashCode(playerPassCounter);
+        result = 31 * result + Arrays.hashCode(playerTricksTaken);
+        return result;
+    }
+
+
+
 
 
 
@@ -399,6 +427,10 @@ public class HeartsGameState extends AbstractGameState {
         return this.playerWithTwoOfClubs;
     }
 
+    public void setNumberOfCards(int numberOfCards){
+        this.numberOfCards = numberOfCards;
+    }
+
 
     @Override
     public int getOrdinalPosition(int playerId, Function<Integer, Double> scoreFunction, BiFunction<Integer, Integer, Double> tiebreakFunction) {
@@ -420,10 +452,8 @@ public class HeartsGameState extends AbstractGameState {
 
 
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), playerDecks, drawDeck);
-    }}
+
+}
 
 
 

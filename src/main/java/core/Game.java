@@ -16,6 +16,8 @@ import players.heuristics.ScoreHeuristic;
 import players.human.*;
 import players.mcts.MCTSParams;
 import players.mcts.MCTSPlayer;
+import players.simple.OSLAPlayer;
+import players.simple.RandomPlayer;
 import utilities.Pair;
 import utilities.Utils;
 
@@ -810,7 +812,7 @@ public class Game {
 
         /* Set up players for the game */
         ArrayList<AbstractPlayer> players = new ArrayList<>();
-//        players.add(new RandomPlayer());
+        players.add(new RandomPlayer());
 
        MCTSParams params = new MCTSParams();
        params.heuristic = new HeartsHeuristic();
@@ -822,7 +824,9 @@ public class Game {
 
         MCTSParams params2 = new MCTSParams();
         params2.heuristic = new LeaderHeuristic();
-        players.add(new MCTSPlayer(params2));
+        //players.add(new MCTSPlayer(params2));
+
+        players.add(new OSLAPlayer());
 
         //players.add(new RandomPlayer());
         //players.add(new RandomPlayer());
@@ -833,7 +837,7 @@ public class Game {
 
         //players.add(new HumanGUIPlayer(ac));
         //players.add(new HumanGUIPlayer(ac));
-        players.add(new MCTSPlayer());
+        //players.add(new MCTSPlayer());
 
 //        MCTSParams params1 = new MCTSParams();
 //        players.add(new MCTSPlayer(params1));
