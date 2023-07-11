@@ -236,7 +236,7 @@ public class HeartsGUIManager extends AbstractGUIManager {
 
             if (gameState.getCurrentPlayer() != activePlayer) {
                 playerHands[activePlayer].setCardHighlight(-1);
-                //playerHands[activePlayer].setFront(false);    IMPORTANT ADD THIS IN LATER
+                playerHands[activePlayer].setFront(false);
                 activePlayer = gameState.getCurrentPlayer();
 
             }
