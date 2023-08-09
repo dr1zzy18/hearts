@@ -812,19 +812,19 @@ public class Game {
 
         /* Set up players for the game */
         ArrayList<AbstractPlayer> players = new ArrayList<>();
-        //players.add(new RandomPlayer());
+        players.add(new RandomPlayer());
 
        MCTSParams params = new MCTSParams();
        params.heuristic = new HeartsHeuristic();
-       //players.add(new MCTSPlayer(params));
+       players.add(new MCTSPlayer(params));
 
         MCTSParams params1 = new MCTSParams();
         params1.heuristic = new ScoreHeuristic();
-        //players.add(new MCTSPlayer(params1));
+        players.add(new MCTSPlayer(params1));
 
         MCTSParams params2 = new MCTSParams();
         params2.heuristic = new LeaderHeuristic();
-        //players.add(new MCTSPlayer(params2));
+        players.add(new MCTSPlayer(params2));
 
         //players.add(new OSLAPlayer());
 
@@ -835,10 +835,10 @@ public class Game {
 
 
 
-        players.add(new HumanGUIPlayer(ac));
-        players.add(new HumanGUIPlayer(ac));
-        players.add(new HumanGUIPlayer(ac));
-        players.add(new HumanGUIPlayer(ac));
+        //players.add(new HumanGUIPlayer(ac));
+        //players.add(new HumanGUIPlayer(ac));
+        //players.add(new HumanGUIPlayer(ac));
+        //players.add(new HumanGUIPlayer(ac));
         //players.add(new MCTSPlayer());
 
 //        MCTSParams params1 = new MCTSParams();

@@ -237,7 +237,7 @@ public class HeartsForwardModel extends StandardForwardModel {
 
 
     @Override
-    protected void endGame(AbstractGameState gs){
+    public void endGame(AbstractGameState gs){
         HeartsGameState hgs = (HeartsGameState) gs;
         double minScore = 1000;
         gs.setGameStatus(GAME_END);
@@ -344,7 +344,7 @@ public class HeartsForwardModel extends StandardForwardModel {
 
 
 
-    private void _endTurn(HeartsGameState hgs) {
+    public void _endTurn(HeartsGameState hgs) {
         HeartsParameters params = (HeartsParameters) hgs.getGameParameters();
         Map<Integer, Integer> pointsMap = hgs.getPlayerPointsMap();
 

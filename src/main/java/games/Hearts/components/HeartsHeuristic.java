@@ -6,11 +6,11 @@ import evaluation.TunableParameters;
 
 public class HeartsHeuristic extends TunableParameters implements IStateHeuristic {
 
-    double HIGH_VALUE_THRESHOLD = 10.0;
-    double MAX_HIGH_VALUE_CARD_PASS_BONUS = 0.3;
-    double maxPossibleScore = 100.0;
-    double maxHighValueCards = 10.0;
-    double maxPossibleTricks = 10.0;
+    public double HIGH_VALUE_THRESHOLD = 10.0;
+    public double MAX_HIGH_VALUE_CARD_PASS_BONUS = 0.3;
+    public double maxPossibleScore = 100.0;
+    public double maxHighValueCards = 10.0;
+    public double maxPossibleTricks = 10.0;
 
     public HeartsHeuristic() {
         addTunableParameter("HIGH_VALUE_THRESHOLD", 10.0);

@@ -13,7 +13,6 @@ import java.util.*;
 
 import java.util.function.*;
 
-import static java.util.Objects.deepEquals;
 
 /**
  * <p>The game state encapsulates all game information. It is a data-only class, with game functionality present
@@ -32,7 +31,7 @@ public class HeartsGameState extends AbstractGameState {
     List<Deck<FrenchCard>> playerDecks;
     Deck<FrenchCard> drawDeck;
 
-    List<Deck<FrenchCard>> trickDecks;
+    public List<Deck<FrenchCard>> trickDecks;
 
     public boolean heartsBroken;
 
@@ -59,11 +58,11 @@ public class HeartsGameState extends AbstractGameState {
 
     public int playerWithTwoOfClubs;
 
-    private boolean gameEnded = false;
+    public boolean gameEnded = false;
 
     // This map stores each player's chosen card
     private Map<Integer, FrenchCard> chosenCards;
-    private Map<Integer, Integer> playerPoints;
+    public Map<Integer, Integer> playerPoints;
 
     List<List<FrenchCard>> passedCards;
 
@@ -71,7 +70,7 @@ public class HeartsGameState extends AbstractGameState {
     public FrenchCard.Suite firstCardSuit;
 
 
-    private int currentPlayer;
+    public int currentPlayer;
 
     public HeartsGameState(AbstractParameters gameParameters, int nPlayers) {
         super(gameParameters, nPlayers);
@@ -79,7 +78,9 @@ public class HeartsGameState extends AbstractGameState {
         playerPoints = new HashMap<>();
         playerPassCounter = new int[nPlayers];
         playerTricksTaken = new int[nPlayers];
+        playerResults = new CoreConstants.GameResult[nPlayers];
         trickDecks = new ArrayList<>();
+        playerDecks = new ArrayList<>();
         currentRound = 1;
         this.pendingPasses = new ArrayList<>(getNPlayers());
         for (int i = 0; i < getNPlayers(); i++) {
@@ -185,7 +186,7 @@ public class HeartsGameState extends AbstractGameState {
 
 
     public int getPlayerPoints(int playerID) {
-        int points = playerPoints.getOrDefault(playerID,0); //put this into gamescore
+        int points = playerPoints.getOrDefault(playerID,0);
         return points;
     }
 
@@ -335,6 +336,19 @@ public class HeartsGameState extends AbstractGameState {
         }
     }
 
+    public void setPlayerPoints(int playerId, int points) {
+        playerPoints.put(playerId, points);
+    }
+
+    public CoreConstants.GameResult getPlayerResult(int playerIdx) {
+        return playerResults[playerIdx];
+    }
+
+
+
+
+
+
 
 
 
@@ -399,9 +413,7 @@ public class HeartsGameState extends AbstractGameState {
         return trickDecks;
     }
 
-    public void setGameEnded(boolean gameEnded) {
-        this.gameEnded = gameEnded;
-    }
+
 
     public boolean isGameEnded() {
         return this.gameEnded;
