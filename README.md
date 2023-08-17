@@ -1,3 +1,48 @@
+## RUNNING HEARTS IN TAG
+
+Running the Hearts Game
+To run the Hearts game in our project, follow the steps below:
+
+1. Building the Project
+   Before running the game, ensure that you've built the project:
+
+Open the project in your preferred IDE.
+Locate the build option (usually found as "Build Project" or similar).
+Execute the build. Wait for the process to complete and ensure there are no errors.
+
+2. Editing the Game.java File
+   Next, navigate to the Game.java file in the project directory:
+
+In the Project tool window, navigate to the location of the Game.java file.
+Open Game.java to edit.
+3. Configuring Players
+   Inside the Game.java file:
+
+Locate the main method. This is where you'll configure the game setup.
+Add or modify the players you want.
+
+4. Set Up Game Parameters
+   Still in the main method, ensure you've set up the game parameters appropriately.
+
+5. Starting the Game
+   Insert the following line to initiate the game:
+
+/* Run! */
+runOne(GameType.Hearts, gameParams, players, seed, false, null, useGUI ? ac : null, turnPause);
+
+Ensure that variables like gameParams, players, seed, etc., are properly defined above this line in the main method.
+
+6. Running the Game
+   After making the necessary edits:
+
+Save the Game.java file.
+Locate the Run option in your IDE (often represented by a green arrow).
+Click on the Run option to execute the Game.java file and start the Hearts game.
+
+
+
+
+
 # TAG: [Tabletop Games Framework](http://www.tabletopgames.ai/)
 
 [![license](https://img.shields.io/github/license/GAIGResearch/TabletopGames)](LICENSE)
