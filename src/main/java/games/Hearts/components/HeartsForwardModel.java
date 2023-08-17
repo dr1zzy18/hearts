@@ -48,7 +48,6 @@ public class HeartsForwardModel extends StandardForwardModel {
         hgs.firstTurn = true;
 
         hgs.playerDecks = new ArrayList<>();
-        //hgs.trickDecks = new ArrayList<>();
         hgs.drawDeck = FrenchCard.generateDeck("DrawDeck", CoreConstants.VisibilityMode.HIDDEN_TO_ALL);
         hgs.drawDeck.shuffle(new Random(System.currentTimeMillis()));
 
@@ -88,7 +87,6 @@ public class HeartsForwardModel extends StandardForwardModel {
 
         for (int i = 0; i < hgs.getNPlayers(); i++){
             Deck<FrenchCard> playerDeck = new Deck<>("Player " + i + " deck", i, CoreConstants.VisibilityMode.VISIBLE_TO_OWNER);
-            //Deck<FrenchCard> trickDeck = new Deck<>("Player " + i + " deck", i, CoreConstants.VisibilityMode.VISIBLE_TO_OWNER);
             hgs.playerDecks.add(playerDeck);
             int numberOfCards;
             if (hgs.getNPlayers() == 3) {
@@ -106,7 +104,7 @@ public class HeartsForwardModel extends StandardForwardModel {
                 numberOfCards = 0;
             }
 
-            //hgs.trickDecks.add(hgs.trickDeck);
+
             for (int card = 0; card < numberOfCards; card++) {
                 playerDeck.add(hgs.drawDeck.draw());
             }
@@ -121,7 +119,7 @@ public class HeartsForwardModel extends StandardForwardModel {
 
     public void _afterAction(AbstractGameState gameState, AbstractAction action) {
         HeartsGameState hgs = (HeartsGameState) gameState;
-        //System.out.println("Player " + gameState.getCurrentPlayer() + " performed action: " + action + " during " + hgs.getGamePhase() + " phase.");
+
 
 
         if (hgs.getGamePhase() == HeartsGameState.Phase.PASSING) {
@@ -179,7 +177,6 @@ public class HeartsForwardModel extends StandardForwardModel {
                             for (FrenchCard card : playerDeck1.getComponents()) {
                                 if (card.suite == FrenchCard.Suite.Clubs && card.number == 2) {
                                     hgs.setFirstPlayer(i);
-                                    //System.out.println("First player of the PLAYING phase is =" + i);
                                     return;
                                 }
                             }
@@ -264,7 +261,6 @@ public class HeartsForwardModel extends StandardForwardModel {
         } else {
             for (Integer playerID : winningPlayers) {
                 gs.setPlayerResult(DRAW_GAME, playerID);
-                // Debug: print the result of setPlayerResult
             }
         }
 
@@ -332,7 +328,7 @@ public class HeartsForwardModel extends StandardForwardModel {
                 }
             }
         }
-        //System.out.println("Player " + player + " available actions: " + actions);
+
 
         return actions;
     }
@@ -345,7 +341,6 @@ public class HeartsForwardModel extends StandardForwardModel {
 
 
     public void _endTurn(HeartsGameState hgs) {
-        HeartsParameters params = (HeartsParameters) hgs.getGameParameters();
         Map<Integer, Integer> pointsMap = hgs.getPlayerPointsMap();
 
         int highestCardValue = -1;
@@ -361,12 +356,11 @@ public class HeartsForwardModel extends StandardForwardModel {
         // Add all cards from this round to the winner's trick deck
         if (winningPlayerID != -1) {
             for (Map.Entry<Integer, FrenchCard> entry : hgs.currentRoundCards) {
-                //System.out.println("Player " + entry.getKey() + " played " + entry.getValue());
                 hgs.trickDecks.get(winningPlayerID).add(entry.getValue());
-                //System.out.println("Added " + entry.getValue() + " to Player " + winningPlayerID + "'s trick deck.");
+
             }
             hgs.playerTricksTaken[winningPlayerID]++;
-            //System.out.println("Winning trick deck: " + hgs.trickDecks);
+
             hgs.setFirstPlayer(winningPlayerID);
             startNewRound(hgs);
         }
@@ -399,7 +393,7 @@ public class HeartsForwardModel extends StandardForwardModel {
         hgs.currentRoundCards.clear();
         hgs.firstCardSuit = null;
         hgs.setCurrentPlayer(hgs.getFirstPlayer());
-        //System.out.println("A new round has started. The first player of this round is Player " + hgs.getCurrentPlayer());
+
     }
 
 

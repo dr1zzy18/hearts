@@ -113,7 +113,7 @@ public class HeartsDeckView extends ComponentView {
                 CardView.drawCard(g, r.x, r.y, r.width, r.height, card, cardFace, backOfCard, isVisible);
                 g.drawRoundRect(r.x, r.y, r.width, r.height, 15, 15);
             }
-            //g.drawString(""+deck.getSize(), rect.x+10, rect.y+cardHeight - size);
+
         }
     }
 

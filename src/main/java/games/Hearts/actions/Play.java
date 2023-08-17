@@ -23,7 +23,7 @@ public class Play extends AbstractAction implements IPrintable {
     @Override
     public boolean execute(AbstractGameState gameState) {
         HeartsGameState hgs = (HeartsGameState) gameState;
-        if (playerID >= 0 && playerID < hgs.getPlayerDecks().size()) {  // Check bounds
+        if (playerID >= 0 && playerID < hgs.getPlayerDecks().size()) {
             Deck<FrenchCard> playerHand = hgs.getPlayerDecks().get(playerID);
             if (playerHand.getComponents().remove(card)) {
                 hgs.getChosenCards().put(playerID, card);
@@ -36,7 +36,7 @@ public class Play extends AbstractAction implements IPrintable {
     @Override
     public AbstractAction copy() {
         return new Play(playerID, card.copy());
-    } //return this
+    }
 
     @Override
     public boolean equals(Object o) {

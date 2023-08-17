@@ -175,8 +175,6 @@ public class HeartsGameState extends AbstractGameState {
                 playerPoints.put(playerId, points);
             }
 
-            //System.out.println("player points:" + playerPoints);
-
             // Clear the trick deck after its points have been added
             trickDeck.clear();
         }

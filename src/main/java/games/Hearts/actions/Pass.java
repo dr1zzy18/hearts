@@ -22,7 +22,7 @@ public class Pass extends AbstractAction implements IPrintable {
     @Override
     public boolean execute(AbstractGameState gameState) {
         HeartsGameState hgs = (HeartsGameState) gameState;
-        if (playerID >= 0 && playerID < hgs.getPlayerDecks().size()) {  // Check bounds
+        if (playerID >= 0 && playerID < hgs.getPlayerDecks().size()) {
             Deck<FrenchCard> playerHand = hgs.getPlayerDecks().get(playerID);
             if (playerHand.getComponents().remove(card1)) {
                 return true;
